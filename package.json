@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha test --recursive"
   },
+  "engines": {
+    "node": ">=7.8.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlkcca/api-test.git"
