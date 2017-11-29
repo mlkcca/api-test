@@ -2,17 +2,17 @@ const request = require('supertest')
 const uuidv4 = require('uuid/v4')
 
 function Push (uuid) {
-  const mlkccaEndpoint = 'https://pubsub1.mlkcca.com'
-  const pushURL = '/api/push/demo/demo?c={{dspath}}'
+  const mlkccaEndpoint = 'https://stg-pubsub1.mlkcca.com'
+  const pushURL = '/api/push/SJL79bh1z/Slb_e7RMdYz8feIaiacTfXkJjlmew5TQJT0GPj8O?c={{dspath}}'
   // const onPushURL = '/on/push/demo/demo?c=[["{{dspath}}",0]]'
 
   describe('GET /push/', function () {
     let agent = request.agent(mlkccaEndpoint)
 
-    it('should return 500 when no paramaters', function (done) {
+    it('should return 400 when no paramaters', function (done) {
       agent
       .get(pushURL.replace(/{{dspath}}/, 'http/' + uuid + '/push/get'))
-      .expect(500)
+      .expect(400)
       .end(function (err, res) {
         if (err) return done(err)
         done()
@@ -47,11 +47,11 @@ function Push (uuid) {
   describe('POST /push/', function () {
     let agent = request.agent(mlkccaEndpoint)
 
-    it('should return 500 when no paramaters', function (done) {
+    it('should return 400 when no paramaters', function (done) {
       agent
       .post(pushURL.replace(/{{dspath}}/, 'http/' + uuid + '/push/post'))
       .send({})
-      .expect(500)
+      .expect(400)
       .end(function (err, res) {
         if (err) return done(err)
         done()
