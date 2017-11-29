@@ -23,7 +23,7 @@ describe("mqtt", function() {
           client.publish(topic, JSON.stringify({content:"Hello"}))
         }, 100)
       })
-       
+
       client.on('message', function (topic, message) {
         console.log("message", topic, result)
         var str = message.toString();
@@ -55,7 +55,7 @@ describe("mqtt", function() {
           client.publish(topic, JSON.stringify({content:"Hello"}))
         }, 100)
       })
-       
+
       client.on('message', function (topic, message) {
         console.log("message", topic, result)
         var str = message.toString();
