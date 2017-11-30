@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test --recursive",
+    "test": "mocha test/index.js",
     "test:file": "mocha",
     "lint:fix": "standard --fix"
   },

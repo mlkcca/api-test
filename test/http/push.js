@@ -2,8 +2,8 @@ const request = require('supertest')
 const uuidv4 = require('uuid/v4')
 
 function Push (uuid) {
-  const mlkccaEndpoint = 'https://stg-pubsub1.mlkcca.com'
-  const pushURL = '/api/push/SJL79bh1z/Slb_e7RMdYz8feIaiacTfXkJjlmew5TQJT0GPj8O?c={{dspath}}'
+  const mlkccaEndpoint = 'https://pubsub1.mlkcca.com'
+  const pushURL = '/api/push/demo/demo?c={{dspath}}'
   // const onPushURL = '/on/push/demo/demo?c=[["{{dspath}}",0]]'
 
   describe('GET /push/', function () {
