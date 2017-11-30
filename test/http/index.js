@@ -5,6 +5,9 @@ function HTTP () {
   describe('Push', function () {
     require('./push')
   })
+  describe('DataStoreList', function () {
+    require('./ds')
+  })
 }
 
 HTTP()
