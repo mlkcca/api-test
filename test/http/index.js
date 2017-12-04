@@ -8,6 +8,9 @@ function HTTP () {
   describe('DataStoreList', function () {
     require('./ds')
   })
+  describe('History', function () {
+    require('./history')
+  })
 }
 
 HTTP()
