@@ -74,7 +74,7 @@ function History (uuid) {
       })
     })
 
-    it('should retrieve all data without options', function (done) {
+    it('should return 200 & retrieve all data without options', function (done) {
       agent
       .get(historyURL + '?c=http/' + uuid + '/history')
       .expect(function (res) {
@@ -90,7 +90,7 @@ function History (uuid) {
       }, done)
     })
 
-    it('should retrieve the data before ts', function (done) {
+    it('should return 200 & retrieve the data before ts', function (done) {
       agent
       .get(historyURL + '?c=http/' + uuid + '/history&ts=' + dataTime2)
       .expect(function (res) {
@@ -108,7 +108,7 @@ function History (uuid) {
       }, done)
     })
 
-    it('should retrieve a data when limit === 1', function (done) {
+    it('should return 200 & retrieve a data when limit === 1', function (done) {
       agent
       .get(historyURL + '?c=http/' + uuid + '/history&limit=1')
       .expect(function (res) {
@@ -126,7 +126,7 @@ function History (uuid) {
       }, done)
     })
 
-    it('should retrieve the latest data when order === "desc" && limit === 1', function (done) {
+    it('should return 200 & retrieve the latest data when order === "desc" && limit === 1', function (done) {
       agent
       .get(historyURL + '?c=http/' + uuid + '/history&limit=1&order=desc')
       .expect(function (res) {
@@ -144,7 +144,7 @@ function History (uuid) {
       }, done)
     })
 
-    it('should retrieve the oldest data when order === "asc" && limit === 1', function (done) {
+    it('should return 200 & retrieve the oldest data when order === "asc" && limit === 1', function (done) {
       agent
       .get(historyURL + '?c=http/' + uuid + '/history&limit=1&order=asc')
       .expect(function (res) {
