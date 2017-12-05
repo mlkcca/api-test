@@ -11,6 +11,9 @@ function HTTP () {
   describe('History', function () {
     require('./history')
   })
+  describe('On', function () {
+    require('./on')
+  })
 }
 
 HTTP()
