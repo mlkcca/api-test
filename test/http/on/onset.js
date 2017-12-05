@@ -71,7 +71,7 @@ function OnSet (uuid) {
         agent
         .get('/api/set/demo/demo?c=http/' + uuid + '/on/set/one&v=1&id=one')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
 
     it('should get seted data after ts', function (done) {
@@ -101,13 +101,13 @@ function OnSet (uuid) {
           agent
           .get('/api/set/demo/demo?c=http/' + uuid + '/on/set/one&v=2&id=one')
           .end(function () {})
-        }, 1000)
+        }, 3000)
       })
       setTimeout(function () {
         agent
         .get('/api/set/demo/demo?c=http/' + uuid + '/on/set/one&v=1&id=one')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
   })
 }

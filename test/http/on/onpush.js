@@ -71,7 +71,7 @@ function OnPush (uuid) {
         agent
         .get('/api/push/demo/demo?c=http/' + uuid + '/on/push/one&v=1')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
 
     it('should get pushed data after ts', function (done) {
@@ -101,13 +101,13 @@ function OnPush (uuid) {
           agent
           .get('/api/push/demo/demo?c=http/' + uuid + '/on/push/one&v=2')
           .end(function () {})
-        }, 1000)
+        }, 3000)
       })
       setTimeout(function () {
         agent
         .get('/api/push/demo/demo?c=http/' + uuid + '/on/push/one&v=1')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
   })
 }

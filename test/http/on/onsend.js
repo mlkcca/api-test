@@ -69,7 +69,7 @@ function OnSend (uuid) {
         agent
         .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=1')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
 
     it('should get sent data after ts', function (done) {
@@ -97,13 +97,13 @@ function OnSend (uuid) {
           agent
           .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=2')
           .end(function () {})
-        }, 1000)
+        }, 3000)
       })
       setTimeout(function () {
         agent
         .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=1')
         .end(function () {})
-      }, 1000)
+      }, 3000)
     })
   })
 }
