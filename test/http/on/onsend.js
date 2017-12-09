@@ -1,10 +1,11 @@
 const request = require('supertest')
 const uuidv4 = require('uuid/v4')
+const settings = require('../../../settings')[process.env.NODE_ENV || 'production']
 
 function OnSend (uuid) {
-  const mlkccaEndpoint = 'https://pubsub1.mlkcca.com'
-  const onSendURL = '/on/send/demo/demo'
-  const onSendURLWrong = '/on/send/demo/wrongapikey'
+  const mlkccaEndpoint = settings.endpoint
+  const onSendURL = '/on/send/' + settings.appId + '/' + settings.apiKey
+  const onSendURLWrong = '/on/send/' + settings.appId + '/wrongapikey'
 
   describe('GET /on/send/', function () {
     this.timeout(30 * 1000)
@@ -67,7 +68,7 @@ function OnSend (uuid) {
       }, done)
       setTimeout(function () {
         agent
-        .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=1')
+        .get('/api/send/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/send/one&v=1')
         .end(function () {})
       }, 3000)
     })
@@ -95,13 +96,13 @@ function OnSend (uuid) {
         }, done)
         setTimeout(function () {
           agent
-          .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=2')
+          .get('/api/send/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/send/one&v=2')
           .end(function () {})
         }, 3000)
       })
       setTimeout(function () {
         agent
-        .get('/api/send/demo/demo?c=http/' + uuid + '/on/send/one&v=1')
+        .get('/api/send/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/send/one&v=1')
         .end(function () {})
       }, 3000)
     })

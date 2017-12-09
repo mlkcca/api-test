@@ -1,10 +1,11 @@
 const request = require('supertest')
 const uuidv4 = require('uuid/v4')
+const settings = require('../../settings')[process.env.NODE_ENV || 'production']
 
 function History (uuid) {
-  const mlkccaEndpoint = 'https://pubsub1.mlkcca.com'
-  const historyURL = '/api/history/demo/demo'
-  const historyURLWrongAPIKey = '/api/history/demo/wrongapikey'
+  const mlkccaEndpoint = settings.endpoint
+  const historyURL = '/api/history/' + settings.appId + '/' + settings.apiKey
+  const historyURLWrongAPIKey = '/api/history/' + settings.appId + '/wrongapikey'
 
   describe('GET /history/', function () {
     this.timeout(10000)
@@ -19,7 +20,7 @@ function History (uuid) {
       dataTime1 = new Date().getTime()
       setTimeout(function () {
         agent
-          .get('/api/push/demo/demo?v=1&c=http/' + uuid + '/history')
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/history')
           .end(function (err, res) {
             if (err) return done(err)
             pushedDataTime1 = res.body.content.t
@@ -30,7 +31,7 @@ function History (uuid) {
         dataTime2 = new Date().getTime()
         setTimeout(function () {
           agent
-            .get('/api/push/demo/demo?v=2&c=http/' + uuid + '/history')
+            .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=2&c=http/' + uuid + '/history')
             .end(function (_err, _res) {
               if (_err) return done(_err)
               pushedDataTime2 = _res.body.content.t

@@ -15,21 +15,6 @@ describe('HTTP', function () {
   describe('history', function () {
     var agent = request.agent(mlkccaEndpoint)
 
-    it('get history', function (done) {
-      agent
-      .get(historyURL)
-      // .set('Accept', 'application/json')
-      .expect(function (res) {
-        let result = JSON.parse(res.text)
-        assert.equal(res.status, 200)
-        assert.equal(result.err, null)
-      }).end(function (err, res) {
-        if (err) {
-          throw err
-        }
-        done()
-      })
-    })
     it('get history previous 1499682206324', function (done) {
       agent
       .get(historyURL + '&limit=5&ts=1499682206324')
@@ -37,24 +22,6 @@ describe('HTTP', function () {
       .expect(function (res) {
         let result = JSON.parse(res.text)
         assert.equal(result.content[0].t, 1499682205473)
-      }).end(function (err, res) {
-        if (err) {
-          throw err
-        }
-        done()
-      })
-    })
-  })
-
-  describe('ds', function () {
-    var agent = request.agent(mlkccaEndpoint)
-
-    it('get apitest datastore', function (done) {
-      agent
-      .get(dsURL)
-      .expect(function (res) {
-        let result = JSON.parse(res.text)
-        assert.equal(result.content[0], 'apitest')
       }).end(function (err, res) {
         if (err) {
           throw err

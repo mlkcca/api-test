@@ -1,22 +1,23 @@
 const request = require('supertest')
 const uuidv4 = require('uuid/v4')
+const settings = require('../../settings')[process.env.NODE_ENV || 'production']
 
 function DataStoreList (uuid) {
-  const mlkccaEndpoint = 'https://pubsub1.mlkcca.com'
-  const dsURL = '/api/ds/demo/demo'
-  const dsURLWrongAPIKey = '/api/ds/demo/wrongapikey'
+  const mlkccaEndpoint = settings.endpoint
+  const dsURL = '/api/ds/' + settings.appId + '/' + settings.apiKey
+  const dsURLWrongAPIKey = '/api/ds/' + settings.appId + '/wrongapikey'
 
   describe('GET /ds/', function () {
     let agent = request.agent(mlkccaEndpoint)
 
     before(function (done) {
       agent
-      .get('/api/push/demo/demo?v=1&c=http/' + uuid + '/ds/one')
+      .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/ds/one')
       .end(function (err, res) {
         if (err) return done(err)
         else {
           agent
-          .get('/api/push/demo/demo?v=1&c=http/' + uuid + '/ds/another')
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/ds/another')
           .end(function (_err, _res) {
             if (_err) return done(_err)
             done()
