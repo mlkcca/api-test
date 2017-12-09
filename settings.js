@@ -13,5 +13,10 @@ module.exports = {
     endpoint: 'https://pubsub1.mlkcca.com',
     appId: 'demo',
     apiKey: 'demo'
+  },
+  test: {
+    endpoint: 'https://pubsub1.mlkcca.com',
+    appId: 'demo',
+    apiKey: 'demo'
   }
 }
