@@ -1,6 +1,8 @@
 const request = require('supertest')
 const uuidv4 = require('uuid/v4')
+console.log(process.env.NODE_ENV)
 const settings = require('../../settings')[process.env.NODE_ENV || 'production']
+console.log(settings)
 
 function Push (uuid) {
   const mlkccaEndpoint = settings.endpoint
