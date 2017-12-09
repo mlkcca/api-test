@@ -5,51 +5,51 @@ const settings = require('../../../settings')[process.env.NODE_ENV || 'productio
 function OnSet (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const onSetURL = '/on/set/' + settings.appId + '/' + settings.apiKey
-  const onSetURLWrong = '/on/set/' + settings.appId + '/wrongapikey'
+  // const onSetURLWrong = '/on/set/' + settings.appId + '/wrongapikey'
 
   describe('GET /on/set/', function () {
     this.timeout(30 * 1000)
     let agent = request.agent(mlkccaEndpoint)
 
-    it('should return 403 if apikey is wrong', function (done) {
-      agent
-      .get(onSetURLWrong + '?c=[["http/' + uuid + '/on/set",0]]')
-      .expect(403)
-      .end(function (err, res) {
-        if (err) return done(err)
-        done()
-      })
-    })
+    // it('should return 403 if apikey is wrong', function (done) {
+    //   agent
+    //   .get(onSetURLWrong + '?c=[["http/' + uuid + '/on/set",0]]')
+    //   .expect(403)
+    //   .end(function (err, res) {
+    //     if (err) return done(err)
+    //     done()
+    //   })
+    // })
 
-    it('should return 400 if no c param.', function (done) {
-      agent
-      .get(onSetURL)
-      .expect(400)
-      .end(function (err, res) {
-        if (err) return done(err)
-        done()
-      })
-    })
+    // it('should return 400 if no c param.', function (done) {
+    //   agent
+    //   .get(onSetURL)
+    //   .expect(400)
+    //   .end(function (err, res) {
+    //     if (err) return done(err)
+    //     done()
+    //   })
+    // })
 
-    it('should return 400 if no c param.', function (done) {
-      agent
-      .get(onSetURL + '?c=')
-      .expect(400)
-      .end(function (err, res) {
-        if (err) return done(err)
-        done()
-      })
-    })
+    // it('should return 400 if no c param.', function (done) {
+    //   agent
+    //   .get(onSetURL + '?c=')
+    //   .expect(400)
+    //   .end(function (err, res) {
+    //     if (err) return done(err)
+    //     done()
+    //   })
+    // })
 
-    it('should return 400 if wrong array', function (done) {
-      agent
-      .get(onSetURL + '?c=["demo1",0]')
-      .expect(400)
-      .end(function (err, res) {
-        if (err) return done(err)
-        done()
-      })
-    })
+    // it('should return 400 if wrong array', function (done) {
+    //   agent
+    //   .get(onSetURL + '?c=["demo1",0]')
+    //   .expect(400)
+    //   .end(function (err, res) {
+    //     if (err) return done(err)
+    //     done()
+    //   })
+    // })
 
     it('should return 200 & get seted data’s value', function (done) {
       agent
