@@ -14,6 +14,9 @@ function HTTP () {
   describe('On', function () {
     require('./on')
   })
+  describe('Grant', function () {
+    require('./grant')
+  })
 }
 
 HTTP()
