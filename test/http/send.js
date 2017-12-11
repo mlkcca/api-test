@@ -8,6 +8,7 @@ function Send (uuid) {
   // const sendURLWrongAPIKey = '/api/send/' + settings.appId + '/wrongapikey'
 
   describe('GET /send/', function () {
+    this.timeout(5000)
     let agent = request.agent(mlkccaEndpoint)
 
     // it('should return 403 if apikey is wrong', function (done) {
