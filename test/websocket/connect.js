@@ -9,21 +9,21 @@ function Connect (uuid) {
   const dspath = 'websocket/' + uuid + '/connect'
   describe('client.connect(pushEndpoint)', function () {
     this.timeout(10000)
-    it('should issue error if password is incorrect', function (done) {
-      const client = new WebSocketClient()
-      client.on('connectFailed', function (error) {
-        throw error
-      })
-      client.on('connect', function (connection) {
-        connection.on('error', function (error) {
-          assert.equal(error.code, 'ECONNRESET')
-          connection.close()
-          client.abort()
-          done()
-        })
-      })
-      client.connect(mlkccaEndpoint + '/ws/push/' + settings.appId + '/wrongApiKey?c=' + dspath)
-    })
+    // it('should issue error if password is incorrect', function (done) {
+    //   const client = new WebSocketClient()
+    //   client.on('connectFailed', function (error) {
+    //     throw error
+    //   })
+    //   client.on('connect', function (connection) {
+    //     connection.on('error', function (error) {
+    //       assert.equal(error.code, 'ECONNRESET')
+    //       connection.close()
+    //       client.abort()
+    //       done()
+    //     })
+    //   })
+    //   client.connect(mlkccaEndpoint + '/ws/push/' + settings.appId + '/wrongApiKey?c=' + dspath)
+    // })
     it('should connect when user/pass are correct', function (done) {
       const client = new WebSocketClient()
       client.on('connectFailed', function (error) {
