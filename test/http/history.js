@@ -31,7 +31,7 @@ function History (uuid) {
         dataTime2 = new Date().getTime()
         setTimeout(function () {
           agent
-            .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=2&c=http/' + uuid + '/history')
+            .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v={"val":2}&c=http/' + uuid + '/history')
             .end(function (_err, _res) {
               if (_err) return done(_err)
               pushedDataTime2 = _res.body.content.t
@@ -123,7 +123,7 @@ function History (uuid) {
       .expect(200, {
         err: null,
         length: 1,
-        value: 2
+        value: {"val":2}
       }, done)
     })
 
@@ -141,7 +141,7 @@ function History (uuid) {
       .expect(200, {
         err: null,
         length: 1,
-        value: 2
+        value: {"val":2}
       }, done)
     })
 

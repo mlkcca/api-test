@@ -1,5 +1,5 @@
-var mqtt = require('mqtt')
-var assert = require('assert')
+const mqtt = require('mqtt')
+const assert = require('assert')
 const uuidv4 = require('uuid/v4')
 const settings = require('../../settings')[process.env.NODE_ENV || 'production']
 
