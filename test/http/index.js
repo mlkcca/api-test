@@ -5,6 +5,12 @@ function HTTP () {
   describe('Push', function () {
     require('./push')
   })
+  describe('Send', function () {
+    require('./send')
+  })
+  describe('Set', function () {
+    require('./set')
+  })
   describe('DataStoreList', function () {
     require('./ds')
   })
