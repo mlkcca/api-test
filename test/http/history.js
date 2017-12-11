@@ -123,7 +123,7 @@ function History (uuid) {
       .expect(200, {
         err: null,
         length: 1,
-        value: {"val":2}
+        value: '{"val":2}'
       }, done)
     })
 
@@ -141,7 +141,7 @@ function History (uuid) {
       .expect(200, {
         err: null,
         length: 1,
-        value: {"val":2}
+        value: '{"val":2}'
       }, done)
     })
 
