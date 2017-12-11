@@ -11,9 +11,6 @@ function MQTT () {
   describe('Send', function () {
     require('./send')
   })
-  describe('Set', function () {
-    require('./set')
-  })
 }
 
 MQTT()
