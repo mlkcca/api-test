@@ -22,7 +22,7 @@ function Connect (uuid) {
           done()
         })
       })
-      client.connect('ws://' + mlkccaEndpoint + '/ws/push/' + settings.appId + '/wrongApiKey?c=' + dspath)
+      client.connect(mlkccaEndpoint + '/ws/push/' + settings.appId + '/wrongApiKey?c=' + dspath)
     })
     it('should connect when user/pass are correct', function (done) {
       const client = new WebSocketClient()
@@ -40,7 +40,7 @@ function Connect (uuid) {
           done()
         }
       })
-      client.connect('ws://' + mlkccaEndpoint + '/ws/push/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
+      client.connect(mlkccaEndpoint + '/ws/push/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
     })
   })
 }

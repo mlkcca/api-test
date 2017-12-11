@@ -35,7 +35,7 @@ function Push (uuid) {
           }, 1000)
         }
       })
-      client.connect('ws://' + mlkccaEndpoint + '/ws/push/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
+      client.connect(mlkccaEndpoint + '/ws/push/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
     })
 
     it('should save data', function (done) {

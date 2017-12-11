@@ -33,7 +33,7 @@ function Send (uuid) {
           }, 1000)
         }
       })
-      client.connect('ws://' + mlkccaEndpoint + '/ws/send/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
+      client.connect(mlkccaEndpoint + '/ws/send/' + settings.appId + '/' + settings.apiKey + '?c=' + dspath)
     })
   })
 }
