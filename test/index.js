@@ -8,3 +8,7 @@ describe('HTTP', function () {
 describe('MQTT', function () {
   require('./mqtt')
 })
+
+describe('Websocket', function () {
+  require('./websocket')
+})
