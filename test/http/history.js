@@ -8,41 +8,26 @@ function History (uuid) {
   // const historyURLWrongAPIKey = '/api/history/' + settings.appId + '/wrongapikey'
 
   describe('GET /history/', function () {
-    this.timeout(10000)
+    this.timeout(30000)
     let agent = request.agent(mlkccaEndpoint)
 
-    var dataTime1 = 0
-    var pushedDataTime1 = 0
-    var dataTime2 = 0
-    var pushedDataTime2 = 0
+    var median = 0
 
     before(function (done) {
-      dataTime1 = new Date().getTime()
-      setTimeout(function () {
-        agent
-          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/history')
-          .end(function (err, res) {
-            if (err) return done(err)
-            pushedDataTime1 = res.body.content.t
-          })
-      }, 1000)
+      agent
+        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/history')
+        .end(function (err, res) {
+          if (err) return done(err)
+        })
 
       setTimeout(function () {
-        dataTime2 = new Date().getTime()
-        setTimeout(function () {
-          agent
-            .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v={"val":2}&c=http/' + uuid + '/history')
-            .end(function (_err, _res) {
-              if (_err) return done(_err)
-              pushedDataTime2 = _res.body.content.t
-              if (dataTime1 * 1000 < pushedDataTime1 &&
-                  pushedDataTime1 < dataTime2 * 1000 &&
-                  dataTime2 * 1000 < pushedDataTime2) {
-                done()
-              }
-            })
-        }, 1000)
-      }, 2000)
+        agent
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v={"val":2}&c=http/' + uuid + '/history')
+          .end(function (_err, _res) {
+            if (_err) return done(_err)
+            done()
+          })
+      }, 1000)
     })
 
     // it('should return 403 if apikey is wrong.', function (done) {
@@ -80,6 +65,7 @@ function History (uuid) {
       .get(historyURL + '?c=http/' + uuid + '/history')
       .expect(function (res) {
         let result = JSON.parse(res.text)
+        median = (result.content[0].t + result.content[1].t) / 2
         res.body = {
           err: result.err,
           length: result.content.length
@@ -93,7 +79,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve the data before ts', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history&ts=' + dataTime2)
+      .get(historyURL + '?c=http/' + uuid + '/history&ts=' + median)
       .expect(function (res) {
         let result = JSON.parse(res.text)
         res.body = {
