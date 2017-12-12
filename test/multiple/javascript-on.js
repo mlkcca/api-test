@@ -9,14 +9,7 @@ const Milkcocoa = require('mlkcca')
 function JavaScriptOn (uuid) {
   let agent = request.agent(settings.endpoint)
 
-  const milkcocoa = new Milkcocoa({
-    host: settings.mqttEndpoint,
-    appId: settings.appId,
-    uuid: 'uuid-' + uuid + '-multiple-javascript',
-    apiKey: settings.apiKey,
-    useSSL: false,
-    port: 8000
-  })
+  const milkcocoa = new Milkcocoa(settings.jsOptions)
 
   describe('JavaScript subscribe HTTP', function () {
     const dspath = 'multiple/' + uuid + '/javascript/http'

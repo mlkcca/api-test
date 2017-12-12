@@ -114,14 +114,7 @@ function WebsocketOn (uuid) {
         })
         if (connection.connected) {
           setTimeout(function () {
-            const milkcocoa = new Milkcocoa({
-              host: settings.mqttEndpoint,
-              appId: settings.appId,
-              uuid: 'uuid-' + uuid + '-multiple-websocket',
-              apiKey: settings.apiKey,
-              useSSL: false,
-              port: 8000
-            })
+            const milkcocoa = new Milkcocoa(settings.jsOptions)
             const ds = milkcocoa.dataStore(dspath)
             // push 'number'
             ds.push(2, function (err, result) {
