@@ -32,8 +32,8 @@ module.exports = {
     appId: 'demo',
     apiKey: 'demo',
     jsOptions: {
-      appId: process.env.APP_ID,
-      apiKey: process.env.API_KEY
+      appId: 'demo',
+      apiKey: 'demo'
     }
   },
   test: {
@@ -43,8 +43,8 @@ module.exports = {
     appId: 'demo',
     apiKey: 'demo',
     jsOptions: {
-      appId: process.env.APP_ID,
-      apiKey: process.env.API_KEY
+      appId: 'demo',
+      apiKey: 'demo'
     }
   }
 }
