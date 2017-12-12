@@ -24,12 +24,12 @@ function Push (uuid) {
       client.on('connect', function (e) {
         client.subscribe(settings.appId + '/' + dspath + '/_p')
         setTimeout(function () {
-          client.publish(topic, 'Hello as push')
+          client.publish(topic, '2')
         }, 100)
       })
 
       client.on('message', function (topic, message) {
-        assert.deepEqual([topic, message.toString()], [topic, 'Hello as push'])
+        assert.deepEqual([topic, message.toString()], [topic, '2'])
         client.end()
         done()
       })
@@ -52,7 +52,7 @@ function Push (uuid) {
         err: null,
         length: 1,
         id: 'string',
-        v: 'Hello as push',
+        v: '2',
         t: 'number'
       }, done)
     })

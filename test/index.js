@@ -12,3 +12,7 @@ describe('MQTT', function () {
 describe('Websocket', function () {
   require('./websocket')
 })
+
+describe('Multiple API', function () {
+  require('./multiple')
+})

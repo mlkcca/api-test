@@ -23,7 +23,7 @@ function Push (uuid) {
         connection.on('message', function (message) {
           if (message.type === 'utf8') {
             const result = JSON.parse(message.utf8Data)
-            assert.deepEqual([typeof result[0][0], typeof result[0][1], result[0][2]], ['number', 'string', 'Hello as push'])
+            assert.deepEqual([typeof result[0][0], typeof result[0][1], result[0][2]], ['number', 'string', '2'])
             connection.close()
             client.abort()
             done()
@@ -31,7 +31,7 @@ function Push (uuid) {
         })
         if (connection.connected) {
           setTimeout(function () {
-            connection.sendUTF('Hello as push')
+            connection.sendUTF(2) // auto convert to string
           }, 1000)
         }
       })
@@ -55,7 +55,7 @@ function Push (uuid) {
         err: null,
         length: 1,
         id: 'string',
-        v: 'Hello as push',
+        v: '2', // string
         t: 'number'
       }, done)
     })
