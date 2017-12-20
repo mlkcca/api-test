@@ -65,7 +65,7 @@ function History (uuid) {
       .get(historyURL + '?c=http/' + uuid + '/history')
       .expect(function (res) {
         let result = JSON.parse(res.text)
-        median = (result.content[0].t + result.content[1].t) / 2
+        median = Math.floor((result.content[0].t + result.content[1].t) / 2)
         res.body = {
           err: result.err,
           length: result.content.length
