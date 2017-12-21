@@ -9,7 +9,7 @@ function Push (uuid) {
   // const pushURLWrongAPIKey = '/api/push/' + settings.appId + '/wrongapikey'
 
   describe('GET /push/', function () {
-    this.timeout(5000)
+    this.timeout(10000)
     let agent = request.agent(mlkccaEndpoint)
     var accessToken = ''
 

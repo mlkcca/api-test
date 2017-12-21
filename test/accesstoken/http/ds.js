@@ -9,6 +9,7 @@ function DataStoreList (uuid) {
   // const dsURLWrongAPIKey = '/api/ds/' + settings.appId + '/wrongapikey'
 
   describe('GET /ds/', function () {
+    this.timeout(10000)
     let agent = request.agent(mlkccaEndpoint)
     var accessToken = ''
 
