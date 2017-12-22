@@ -25,7 +25,7 @@ function OnPush (uuid) {
 
     // it('should return 403 if apikey is wrong', function (done) {
     //   agent
-    //   .get(onPushURLWrong + '?c=[["http/' + uuid + '/on/push",0]]')
+    //   .get(onPushURLWrong + '?c=[["accesstoken/http/' + uuid + '/on/push",0]]')
     //   .expect(403)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -65,11 +65,11 @@ function OnPush (uuid) {
 
     it('should return 200 & get pushed data’s value', function (done) {
       agent
-      .get(onPushURL + '?c=[["http/' + uuid + '/on/push/one",0],["http/' + uuid + '/on/push/two",0]]')
+      .get(onPushURL + '?c=[["accesstoken/http/' + uuid + '/on/push/one",0],["accesstoken/http/' + uuid + '/on/push/two",0]]')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
-        let v = result['http/' + uuid + '/on/push/one']
+        let v = result['accesstoken/http/' + uuid + '/on/push/one']
         res.body = {
           ts: typeof v[0][0],
           id: typeof v[0][1],
@@ -83,25 +83,25 @@ function OnPush (uuid) {
       }, done)
       setTimeout(function () {
         agent
-        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/push/one&v=1')
+        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/push/one&v=1')
         .end(function () {})
       }, 3000)
     })
 
     it('should get pushed data after ts', function (done) {
       agent
-      .get(onPushURL + '?c=[["http/' + uuid + '/on/push/one",0]]')
+      .get(onPushURL + '?c=[["accesstoken/http/' + uuid + '/on/push/one",0]]')
       .set('Authorization', 'Bearer ' + accessToken)
       .end(function (err, res) {
         if (err) return done(err)
         let result = JSON.parse(res.text)
-        let ts = result['http/' + uuid + '/on/push/one'][0][0]
+        let ts = result['accesstoken/http/' + uuid + '/on/push/one'][0][0]
         agent
-        .get(onPushURL + '?c=[["http/' + uuid + '/on/push/one",' + ts + ']]')
+        .get(onPushURL + '?c=[["accesstoken/http/' + uuid + '/on/push/one",' + ts + ']]')
         .set('Authorization', 'Bearer ' + accessToken)
         .expect(function (res) {
           let _result = JSON.parse(res.text)
-          let v = _result['http/' + uuid + '/on/push/one']
+          let v = _result['accesstoken/http/' + uuid + '/on/push/one']
           res.body = {
             ts: typeof v[0][0],
             id: typeof v[0][1],
@@ -115,13 +115,13 @@ function OnPush (uuid) {
         }, done)
         setTimeout(function () {
           agent
-          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/push/one&v=2')
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/push/one&v=2')
           .end(function () {})
         }, 3000)
       })
       setTimeout(function () {
         agent
-        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/push/one&v=1')
+        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/push/one&v=1')
         .end(function () {})
       }, 3000)
     })

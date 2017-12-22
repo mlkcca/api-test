@@ -25,7 +25,7 @@ function Set (uuid) {
 
     // it('should return 403 if apikey is wrong', function (done) {
     //   agent
-    //   .get(setURLWrongAPIKey + '?c=http/' + uuid + '/set/get&v={"val":10}')
+    //   .get(setURLWrongAPIKey + '?c=accesstoken/http/' + uuid + '/set/get&v={"val":10}')
     //   .expect(403)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -55,7 +55,7 @@ function Set (uuid) {
 
     // it('should return 400 if no v param', function (done) {
     //   agent
-    //   .get(setURL + '?c=http/' + uuid + '/set/get')
+    //   .get(setURL + '?c=accesstoken/http/' + uuid + '/set/get')
     //   .expect(400)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -65,7 +65,7 @@ function Set (uuid) {
 
     // it('should return 400 if v === empty', function (done) {
     //   agent
-    //   .get(setURL + '?c=http/' + uuid + '/set/get&v=')
+    //   .get(setURL + '?c=accesstoken/http/' + uuid + '/set/get&v=')
     //   .expect(400)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -75,7 +75,7 @@ function Set (uuid) {
 
     it('should return 200 when paramaters are valid', function (done) {
       agent
-      .get(setURL + '?c=http/' + uuid + '/set/get&id=test1&v={"val":10}')
+      .get(setURL + '?c=accesstoken/http/' + uuid + '/set/get&id=test1&v={"val":10}')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -105,7 +105,7 @@ function Set (uuid) {
 
     // it('should return 403 if apikey is wrong', function (done) {
     //   agent
-    //   .post(setURLWrongAPIKey + '?c=http/' + uuid + '/set/post')
+    //   .post(setURLWrongAPIKey + '?c=accesstoken/http/' + uuid + '/set/post')
     //   .send({v: 2})
     //   .expect(403)
     //   .end(function (err, res) {
@@ -138,7 +138,7 @@ function Set (uuid) {
 
     // it('should return 400 if no v param', function (done) {
     //   agent
-    //   .post(setURL + '?c=http/' + uuid + '/set/post')
+    //   .post(setURL + '?c=accesstoken/http/' + uuid + '/set/post')
     //   .send({})
     //   .expect(400)
     //   .end(function (err, res) {
@@ -149,7 +149,7 @@ function Set (uuid) {
 
     // it('should return 400 if v === empty', function (done) {
     //   agent
-    //   .post(setURL + '?c=http/' + uuid + '/set/post')
+    //   .post(setURL + '?c=accesstoken/http/' + uuid + '/set/post')
     //   .send({v: ''})
     //   .expect(400)
     //   .end(function (err, res) {
@@ -160,7 +160,7 @@ function Set (uuid) {
 
     it('should return 200 when paramaters are valid', function (done) {
       agent
-      .post(setURL + '?c=http/' + uuid + '/set/post')
+      .post(setURL + '?c=accesstoken/http/' + uuid + '/set/post')
       .set('Authorization', 'Bearer ' + accessToken)
       .send({
         id: 'test2',

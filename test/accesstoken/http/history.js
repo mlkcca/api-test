@@ -16,14 +16,14 @@ function History (uuid) {
 
     before(function (done) {
       agent
-        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/history')
+        .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=accesstoken/http/' + uuid + '/history')
         .end(function (err, res) {
           if (err) return done(err)
         })
 
       setTimeout(function () {
         agent
-          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v={"val":2}&c=http/' + uuid + '/history')
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v={"val":2}&c=accesstoken/http/' + uuid + '/history')
           .end(function (_err, _res) {
             if (_err) return done(_err)
             agent
@@ -39,7 +39,7 @@ function History (uuid) {
 
     // it('should return 403 if apikey is wrong.', function (done) {
     //   agent
-    //   .get(historyURLWrongAPIKey + '?c=http/' + uuid + '/history')
+    //   .get(historyURLWrongAPIKey + '?c=accesstoken/http/' + uuid + '/history')
     //   .expect(403)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -69,7 +69,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve all data without options', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history')
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -87,7 +87,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve the data before ts', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history&ts=' + median)
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history&ts=' + median)
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -106,7 +106,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve a data when limit === 1', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history&limit=1')
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history&limit=1')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -125,7 +125,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve the latest data when order === "desc" && limit === 1', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history&limit=1&order=desc')
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history&limit=1&order=desc')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -144,7 +144,7 @@ function History (uuid) {
 
     it('should return 200 & retrieve the oldest data when order === "asc" && limit === 1', function (done) {
       agent
-      .get(historyURL + '?c=http/' + uuid + '/history&limit=1&order=asc')
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history&limit=1&order=asc')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)

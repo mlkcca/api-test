@@ -13,6 +13,10 @@ describe('Websocket', function () {
   require('./websocket')
 })
 
+describe('Access token', function () {
+  require('./accesstoken')
+})
+
 describe('Multiple API', function () {
   require('./multiple')
 })

@@ -25,7 +25,7 @@ function OnSet (uuid) {
 
     // it('should return 403 if apikey is wrong', function (done) {
     //   agent
-    //   .get(onSetURLWrong + '?c=[["http/' + uuid + '/on/set",0]]')
+    //   .get(onSetURLWrong + '?c=[["accesstoken/http/' + uuid + '/on/set",0]]')
     //   .expect(403)
     //   .end(function (err, res) {
     //     if (err) return done(err)
@@ -65,11 +65,11 @@ function OnSet (uuid) {
 
     it('should return 200 & get seted data’s value', function (done) {
       agent
-      .get(onSetURL + '?c=[["http/' + uuid + '/on/set/one",0],["http/' + uuid + '/on/set/two",0]]')
+      .get(onSetURL + '?c=[["accesstoken/http/' + uuid + '/on/set/one",0],["accesstoken/http/' + uuid + '/on/set/two",0]]')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
-        let v = result['http/' + uuid + '/on/set/one']
+        let v = result['accesstoken/http/' + uuid + '/on/set/one']
         res.body = {
           ts: typeof v[0][0],
           id: typeof v[0][1],
@@ -83,25 +83,25 @@ function OnSet (uuid) {
       }, done)
       setTimeout(function () {
         agent
-        .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/set/one&v=1&id=one')
+        .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/set/one&v=1&id=one')
         .end(function () {})
       }, 3000)
     })
 
     it('should get seted data after ts', function (done) {
       agent
-      .get(onSetURL + '?c=[["http/' + uuid + '/on/set/one",0]]')
+      .get(onSetURL + '?c=[["accesstoken/http/' + uuid + '/on/set/one",0]]')
       .set('Authorization', 'Bearer ' + accessToken)
       .end(function (err, res) {
         if (err) return done(err)
         let result = JSON.parse(res.text)
-        let ts = result['http/' + uuid + '/on/set/one'][0][0]
+        let ts = result['accesstoken/http/' + uuid + '/on/set/one'][0][0]
         agent
-        .get(onSetURL + '?c=[["http/' + uuid + '/on/set/one",' + ts + ']]')
+        .get(onSetURL + '?c=[["accesstoken/http/' + uuid + '/on/set/one",' + ts + ']]')
         .set('Authorization', 'Bearer ' + accessToken)
         .expect(function (res) {
           let _result = JSON.parse(res.text)
-          let v = _result['http/' + uuid + '/on/set/one']
+          let v = _result['accesstoken/http/' + uuid + '/on/set/one']
           res.body = {
             ts: typeof v[0][0],
             id: typeof v[0][1],
@@ -115,13 +115,13 @@ function OnSet (uuid) {
         }, done)
         setTimeout(function () {
           agent
-          .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/set/one&v=2&id=one')
+          .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/set/one&v=2&id=one')
           .end(function () {})
         }, 3000)
       })
       setTimeout(function () {
         agent
-        .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=http/' + uuid + '/on/set/one&v=1&id=one')
+        .get('/api/set/' + settings.appId + '/' + settings.apiKey + '?c=accesstoken/http/' + uuid + '/on/set/one&v=1&id=one')
         .end(function () {})
       }, 3000)
     })

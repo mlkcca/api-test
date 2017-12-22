@@ -15,12 +15,12 @@ function DataStoreList (uuid) {
 
     before(function (done) {
       agent
-      .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/ds/one')
+      .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=accesstoken/http/' + uuid + '/ds/one')
       .end(function (err, res) {
         if (err) return done(err)
         else {
           agent
-          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=http/' + uuid + '/ds/another')
+          .get('/api/push/' + settings.appId + '/' + settings.apiKey + '?v=1&c=accesstoken/http/' + uuid + '/ds/another')
           .end(function (_err, _res) {
             if (_err) return done(_err)
             agent
@@ -81,7 +81,7 @@ function DataStoreList (uuid) {
 
     it('should return 200 & the specific dataStorePath', function (done) {
       agent
-      .get(dsURL + '?c=http/' + uuid + '/ds/one')
+      .get(dsURL + '?c=accesstoken/http/' + uuid + '/ds/one')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -94,13 +94,13 @@ function DataStoreList (uuid) {
       .expect(200, {
         err: null,
         num: true,
-        name: 'http/' + uuid + '/ds/one'
+        name: 'accesstoken/http/' + uuid + '/ds/one'
       }, done)
     })
 
     it('should return 200 & the dataStores matched by forward pattern', function (done) {
       agent
-      .get(dsURL + '?c=http/' + uuid + '/ds/')
+      .get(dsURL + '?c=accesstoken/http/' + uuid + '/ds/')
       .set('Authorization', 'Bearer ' + accessToken)
       .expect(function (res) {
         let result = JSON.parse(res.text)
@@ -113,7 +113,7 @@ function DataStoreList (uuid) {
       .expect(200, {
         err: null,
         num: true,
-        array: ['http/' + uuid + '/ds/another', 'http/' + uuid + '/ds/one']
+        array: ['accesstoken/http/' + uuid + '/ds/another', 'accesstoken/http/' + uuid + '/ds/one']
       }, done)
     })
   })
