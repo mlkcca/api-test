@@ -5,7 +5,7 @@ const settings = require('../../settings')[process.env.NODE_ENV || 'production']
 function History (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const historyURL = '/api/history/' + settings.appId + '/' + settings.apiKey
-  // const historyURLWrongAPIKey = '/api/history/' + settings.appId + '/wrongapikey'
+  const historyURLWrongAPIKey = '/api/history/' + settings.appId + '/wrongapikey'
 
   describe('GET /history/', function () {
     this.timeout(30000)
@@ -30,35 +30,35 @@ function History (uuid) {
       }, 1000)
     })
 
-    // it('should return 403 if apikey is wrong.', function (done) {
-    //   agent
-    //   .get(historyURLWrongAPIKey + '?c=http/' + uuid + '/history')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if apikey is wrong.', function (done) {
+      agent
+      .get(historyURLWrongAPIKey + '?c=http/' + uuid + '/history')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 403 if no c param.', function (done) {
-    //   agent
-    //   .get(historyURL)
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if no c param.', function (done) {
+      agent
+      .get(historyURL)
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 403 if c param === empty.', function (done) {
-    //   agent
-    //   .get(historyURL + '?c=')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if c param === empty.', function (done) {
+      agent
+      .get(historyURL + '?c=')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & retrieve all data without options', function (done) {
       agent
@@ -74,6 +74,40 @@ function History (uuid) {
       .expect(200, {
         err: null,
         length: 2
+      }, done)
+    })
+
+    it('should return 200 & retrieve all data with wrong ts & limit', function (done) {
+      agent
+      .get(historyURL + '?c=http/' + uuid + '/history&ts=hoge&limit=hoge')
+      .expect(function (res) {
+        let result = JSON.parse(res.text)
+        res.body = {
+          err: result.err,
+          length: result.content.length
+        }
+      })
+      .expect(200, {
+        err: null,
+        length: 2
+      }, done)
+    })
+
+    it('should return 200 & retrieve desc order data with wrong order', function (done) {
+      agent
+      .get(historyURL + '?c=http/' + uuid + '/history&order=hoge')
+      .expect(function (res) {
+        let result = JSON.parse(res.text)
+        res.body = {
+          err: result.err,
+          length: result.content.length,
+          value: result.content[0].v
+        }
+      })
+      .expect(200, {
+        err: null,
+        length: 2,
+        value: '{"val":2}'
       }, done)
     })
 
