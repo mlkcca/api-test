@@ -5,7 +5,7 @@ const settings = require('../../settings')[process.env.NODE_ENV || 'production']
 function DataStoreList (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const dsURL = '/api/ds/' + settings.appId + '/' + settings.apiKey
-  // const dsURLWrongAPIKey = '/api/ds/' + settings.appId + '/wrongapikey'
+  const dsURLWrongAPIKey = '/api/ds/' + settings.appId + '/wrongapikey'
 
   describe('GET /ds/', function () {
     let agent = request.agent(mlkccaEndpoint)
@@ -26,15 +26,15 @@ function DataStoreList (uuid) {
       })
     })
 
-    // it('should return 403 if apikey is wrong', function (done) {
-    //   agent
-    //   .get(dsURLWrongAPIKey)
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if apikey is wrong', function (done) {
+      agent
+      .get(dsURLWrongAPIKey)
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & all dataStores if no c param', function (done) {
       agent
