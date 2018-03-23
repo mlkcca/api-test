@@ -6,7 +6,6 @@ function History (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const historyURL = '/api/history/' + settings.appId
   const grantURL = '/api/grant/' + settings.appId + '/' + settings.apiKey
-  // const historyURLWrongAPIKey = '/api/history/' + settings.appId + '/wrongapikey'
 
   describe('GET /history/', function () {
     this.timeout(30000)
@@ -37,35 +36,38 @@ function History (uuid) {
       }, 1000)
     })
 
-    // it('should return 403 if apikey is wrong.', function (done) {
-    //   agent
-    //   .get(historyURLWrongAPIKey + '?c=accesstoken/http/' + uuid + '/history')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if access token is wrong.', function (done) {
+      agent
+      .get(historyURL + '?c=accesstoken/http/' + uuid + '/history')
+      .set('Authorization', 'Bearer wrongAccessToken')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 403 if no c param.', function (done) {
-    //   agent
-    //   .get(historyURL)
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if no c param.', function (done) {
+      agent
+      .get(historyURL)
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 403 if c param === empty.', function (done) {
-    //   agent
-    //   .get(historyURL + '?c=')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if c param === empty.', function (done) {
+      agent
+      .get(historyURL + '?c=')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & retrieve all data without options', function (done) {
       agent

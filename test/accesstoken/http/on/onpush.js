@@ -6,7 +6,6 @@ function OnPush (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const onPushURL = '/on/push/' + settings.appId
   const grantURL = '/api/grant/' + settings.appId + '/' + settings.apiKey
-  // const onPushURLWrong = '/on/push/' + settings.appId + '/wrongapikey'
 
   describe('GET /on/push/', function () {
     this.timeout(30 * 1000)
@@ -23,45 +22,49 @@ function OnPush (uuid) {
       })
     })
 
-    // it('should return 403 if apikey is wrong', function (done) {
-    //   agent
-    //   .get(onPushURLWrong + '?c=[["accesstoken/http/' + uuid + '/on/push",0]]')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if access token is wrong', function (done) {
+      agent
+      .get(onPushURL + '?c=[["accesstoken/http/' + uuid + '/on/push",0]]')
+      .set('Authorization', 'Bearer wrongAccessToken')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if no c param.', function (done) {
-    //   agent
-    //   .get(onPushURL)
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if no c param.', function (done) {
+      agent
+      .get(onPushURL)
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if no c param.', function (done) {
-    //   agent
-    //   .get(onPushURL + '?c=')
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if no c param.', function (done) {
+      agent
+      .get(onPushURL + '?c=')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if wrong array', function (done) {
-    //   agent
-    //   .get(onPushURL + '?c=["demo1",0]')
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if wrong array', function (done) {
+      agent
+      .get(onPushURL + '?c=["demo1",0]')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & get pushed data’s value', function (done) {
       agent

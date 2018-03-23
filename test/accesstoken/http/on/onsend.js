@@ -6,7 +6,6 @@ function OnSend (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const onSendURL = '/on/send/' + settings.appId
   const grantURL = '/api/grant/' + settings.appId + '/' + settings.apiKey
-  // const onSendURLWrong = '/on/send/' + settings.appId + '/wrongapikey'
 
   describe('GET /on/send/', function () {
     this.timeout(30 * 1000)
@@ -23,45 +22,49 @@ function OnSend (uuid) {
       })
     })
 
-    // it('should return 403 if apikey is wrong', function (done) {
-    //   agent
-    //   .get(onSendURLWrong + '?c=[["accesstoken/http/' + uuid + '/on/send",0]]')
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if access token is wrong', function (done) {
+      agent
+      .get(onSendURL + '?c=[["accesstoken/http/' + uuid + '/on/send",0]]')
+      .set('Authorization', 'Bearer wrongAccessToken')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if no c param.', function (done) {
-    //   agent
-    //   .get(onSendURL)
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if no c param.', function (done) {
+      agent
+      .get(onSendURL)
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if no c param.', function (done) {
-    //   agent
-    //   .get(onSendURL + '?c=')
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if no c param.', function (done) {
+      agent
+      .get(onSendURL + '?c=')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
-    // it('should return 400 if wrong array', function (done) {
-    //   agent
-    //   .get(onSendURL + '?c=["demo1",0]')
-    //   .expect(400)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 400 if wrong array', function (done) {
+      agent
+      .get(onSendURL + '?c=["demo1",0]')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & get sent data’s value', function (done) {
       agent

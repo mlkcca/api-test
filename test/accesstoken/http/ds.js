@@ -6,7 +6,6 @@ function DataStoreList (uuid) {
   const mlkccaEndpoint = settings.endpoint
   const dsURL = '/api/ds/' + settings.appId
   const grantURL = '/api/grant/' + settings.appId + '/' + settings.apiKey
-  // const dsURLWrongAPIKey = '/api/ds/' + settings.appId + '/wrongapikey'
 
   describe('GET /ds/', function () {
     this.timeout(10000)
@@ -35,15 +34,16 @@ function DataStoreList (uuid) {
       })
     })
 
-    // it('should return 403 if apikey is wrong', function (done) {
-    //   agent
-    //   .get(dsURLWrongAPIKey)
-    //   .expect(403)
-    //   .end(function (err, res) {
-    //     if (err) return done(err)
-    //     done()
-    //   })
-    // })
+    it('should return 403 if access token is wrong', function (done) {
+      agent
+      .get(dsURL)
+      .set('Authorization', 'Bearer wrongAccessToken')
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err)
+        done()
+      })
+    })
 
     it('should return 200 & all dataStores if no c param', function (done) {
       agent
